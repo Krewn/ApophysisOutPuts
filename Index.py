@@ -71,12 +71,16 @@ class indexer:
 	def cssProd(self):
 		#insert Css within quoted area
 		return("""
-			h2{
-				color: ghostwhite;
-			}
-			a{
-				color: darkkhaki;
-			}
+h2{
+	color: ghostwhite;
+}
+a{
+	color: darkkhaki;
+}
+img{
+	max-width:636px;
+	max-height:495px;
+}
 		""")
 	
 	def make(self):
