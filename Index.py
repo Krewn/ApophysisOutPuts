@@ -9,6 +9,7 @@ class indexer:
 	
 	def __init__(self,p):
 		self.path=p
+		self.make()
 	def fprep(self,name):
 		name.replace(".","")
 		name.replace("\\","/")
@@ -45,7 +46,12 @@ class indexer:
 		print("start")
 		ret = ""
 		ret+="""<!DOCTYPE html><html>"""
-		ret+="<div>"
+		ret+="""
+		<head>
+			<link rel="stylesheet" type="text/css" href="index.css">
+		</head>
+		"""
+		ret+="<body bgcolor='black'>"
 		files = [f for f in os.listdir('.') if os.path.isfile(f) and f.split(".")[len(f.split("."))-1]=="html"]
 		for t in files:
 			ret+="<a href ="+self.refPrep()+"/"+self.fprep(t)+">"+self.fprep(t)+"</a><br>\n"
@@ -57,15 +63,38 @@ class indexer:
 			ret+="<div>"
 			ret+=self.HtmlFrek(k)
 			ret+="</div>"
-		ret+="</div>"
+		ret+="</body>"
 		ret+="""</html>"""
 		self.prod = ret
 		return(ret)
 		
+	def cssProd(self):
+		#insert Css within quoted area
+		return("""
+h2{
+	color: ghostwhite;
+}
+a{
+	color: darkkhaki;
+}
+img{
+	max-width:636px;
+	max-height:495px;
+}
+		""")
+	
+	def make(self):
+		css = self.cssProd()
+		html = self.HtmlProd()
+		w = open("index.html","w")
+		w.write(html)
+		w.close()
+		w = open("index.css","w")
+		w.write(css)
+		w.close()		 
+		
 i = indexer(".")
-q=i.HtmlProd()
+
 #print i.prod
 
-w = open("index.html","w")
-w.write(q)
-w.close()
+
